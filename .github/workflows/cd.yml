@@ -1,6 +1,7 @@
 name: cd.yml
 on:
   workflow_run:
+    workflows: ["ci-windows.yml"]
     types:
       - completed
     branches:
