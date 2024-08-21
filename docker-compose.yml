@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: maindb
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+        test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+
+  logservice:
+    build:
+      dockerfile: Dockerfile
+      args:
+        OS_ENV: ${CI_OS_ENV}
+    container_name: logservice
+    depends_on:
+      - mysql
+    environment:
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_NAME: maindb
+      HTTP_HOST: 0.0.0.0
+    ports:
+      - "8080:8080"
+    links:
+      - mysql
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/v1/healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysqldata:

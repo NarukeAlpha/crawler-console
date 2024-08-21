@@ -1,0 +1,26 @@
+name: ci-windows.yml
+on:
+  workflow_run:
+    workflows: ["ci-ubuntu.yml"]
+    types:
+      - completed
+    branches:
+      - main
+jobs:
+  build_docker_and_test:
+    runs-on: windows-latest
+    name: Run docker compose yml
+    container: docker
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "Builds the docker composed image"
+        id: build
+        run: docker compose build
+      - name: "Brings up the docker compose and runs the tests"
+        id: run-test
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        run: docker compose up --abort-on-container-exit --exit-code-from client

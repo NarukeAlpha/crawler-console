@@ -1,0 +1,49 @@
+name: cd.yml
+on:
+  workflow_run:
+    types:
+      - completed
+    branches:
+        - main
+
+jobs:
+  deploy_docker_vps:
+    runs-on: windows-latest
+    name: Deploy to VPS
+    container: docker
+    steps:
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
+      - name: Copy docker-compose file to VPS
+        run: |
+          scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:/home/${{ secrets.VPS_USER }}/docker-compose.yml
+      - name: Deploy using Docker Compose
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
+          docker-compose -f /home/${{ secrets.VPS_USER }}/docker-compose.yml down
+          docker-compose -f /home/${{ secrets.VPS_USER }}/docker-compose.yml up -d
+          EOF
+
+      - name: Health check
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
+          for i in {1..10}; do
+            if curl -s http://localhost:8080/health | grep "healthy"; then
+              echo "Application is healthy."
+              exit 0
+            else
+              echo "Waiting for application to be healthy..."
+              sleep 10
+            fi
+          done
+          echo "Application is not healthy."
+          exit 1
+          EOF
+      - name: Rollback if Health check fails
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
+          docker-compose -f /home/${{ secrets.VPS_USER }}/docker-compose.yml down
+          # Optionally, you can deploy the previous version or take other rollback actions here
+          EOF

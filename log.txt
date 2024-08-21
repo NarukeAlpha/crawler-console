@@ -1,0 +1,61 @@
+2024/08/12 22:00:14 Started successfully
+2024/08/12 22:00:14 Started DB process
+2024/08/12 22:00:14 Connecting to maindb
+2024/08/12 22:00:14 Press Ctrl+C to exit
+2024/08/12 22:00:14 Connected to database
+2024/08/12 22:00:14 Server started on localhost:8080
+2024/08/12 22:00:45 Command to exit recieved:<nil>
+2024/08/14 20:13:14 Started successfully
+2024/08/14 20:13:14 Started DB process
+2024/08/14 20:13:14 Connecting to maindb
+2024/08/14 20:13:14 Press Ctrl+C to exit
+2024/08/14 20:13:14 Connected to database
+2024/08/14 20:13:14 Server started on localhost:8080
+2024/08/17 01:44:38 Started successfully
+2024/08/17 01:44:38 Started DB process
+2024/08/17 01:44:38 Connecting to maindb
+2024/08/17 01:44:38 Press Ctrl+C to exit
+2024/08/17 01:44:38 Connected to database
+2024/08/17 01:44:38 Server started on 127.0.0.1 t:8080
+2024/08/17 01:54:01 Started successfully
+2024/08/17 01:54:01 Started DB process
+2024/08/17 01:54:01 Press Ctrl+C to exit
+2024/08/17 01:54:01 Connecting to maindb
+2024/08/17 01:54:01 Connected to database
+2024/08/17 01:54:01 Server started on 127.0.0.1:8080
+2024/08/17 01:54:04 Error pinging DB: Error 1045 (28000): Access denied for user 'logservice'@'192.168.65.1' (using password: YES)
+2024/08/17 01:55:42 Started successfully
+2024/08/17 01:55:42 Started DB process
+2024/08/17 01:55:42 Connecting to maindb
+2024/08/17 01:55:42 Press Ctrl+C to exit
+2024/08/17 01:55:42 Connected to database
+2024/08/17 01:55:42 Server started on 127.0.0.1:8080
+2024/08/17 01:55:47 Error pinging DB: dial tcp 127.0.0.1:3306: connect: connection refused
+2024/08/17 01:56:37 Error pinging DB: Error 1045 (28000): Access denied for user 'logservice'@'192.168.65.1' (using password: YES)
+2024/08/17 02:07:12 Started successfully
+2024/08/17 02:07:12 Started DB process
+2024/08/17 02:07:12 Connecting to maindb
+2024/08/17 02:07:12 Press Ctrl+C to exit
+2024/08/17 02:07:12 Connected to database
+2024/08/17 02:07:12 Server started on 127.0.0.1:8080
+2024/08/17 02:07:18 Error pinging DB: Error 1045 (28000): Access denied for user 'logservice'@'192.168.65.1' (using password: YES)
+2024/08/17 13:42:35 Started successfully
+2024/08/17 13:42:35 Started DB process
+2024/08/17 13:42:35 Connecting to maindb
+2024/08/17 13:42:35 Press Ctrl+C to exit
+2024/08/17 13:42:35 Connected to database
+2024/08/17 13:42:35 Server started on 127.0.0.1:8080
+2024/08/17 13:47:31 Started successfully
+2024/08/17 13:47:31 Started DB process
+2024/08/17 13:47:31 Connecting to maindb
+2024/08/17 13:47:31 Press Ctrl+C to exit
+2024/08/17 13:47:31 Connected to database
+2024/08/17 13:47:31 Server started on 127.0.0.1:8080
+2024/08/17 13:47:41 Ping successful
+2024/08/21 00:21:49 Started successfully
+2024/08/21 00:21:49 Started DB process
+2024/08/21 00:21:49 Connecting to maindb
+2024/08/21 00:21:49 Press Ctrl+C to exit
+2024/08/21 00:21:49 Connected to database
+2024/08/21 00:21:49 Server started on 127.0.0.1:8080
+2024/08/21 00:22:37 Ping successful

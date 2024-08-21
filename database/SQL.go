@@ -1,17 +1,28 @@
 package database
 
 import (
-	"database/sql"
 	"log"
-
-	_ "github.com/mattn/go-sqlite3"
+	"net/http"
+	"os"
 )
 
-func main() {
-	db, err := sql.Open("sqlite3", "./database.db")
+func Main(dbkey struct {
+	Url      string `json:"url"`
+	User     string `json:"user"`
+	Password string `json:"password"`
+	Database string `json:"database"`
+}) {
+	var key = dbkey.User + ":" + dbkey.Password + "@tcp(" + dbkey.Url + ")/" + dbkey.Database
+	log.Printf("Connecting to %v", dbkey.Database)
+
+	var Db = SqlInit(key)
+	defer Db.Close()
+
+	r := HttpServer(Db)
+	var localIP = os.Getenv("HTTP_HOST") + ":8080"
+	err := http.ListenAndServe(localIP, r)
 	if err != nil {
-		log.Fatal(err)
+		log.Panicf("Error starting server: %v", err)
 	}
-	defer db.Close()
 
 }
