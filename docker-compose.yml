@@ -1,7 +1,8 @@
-version: '3.9'
+version: '4.3'
 
 services:
   mysql:
+
     image: mysql:latest
     container_name: mysql
     environment:
@@ -39,6 +40,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  integrationtest:
+    build:
+      dockerfile: DockerfileIntegration
+    container_name: integrationTest
+    depends_on:
+      - logservice
+      - mysql
+    environment:
+      LS_URL: logservice
+    ports:
+        - "8081:8081"
+
 
 volumes:
   mysqldata:
