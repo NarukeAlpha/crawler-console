@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -16,6 +17,7 @@ func HttpServer(db *sql.DB) *mux.Router {
 		log.Printf("Command to exit recieved:%v", api.Get("exit"))
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Shutting down Service"))
+		time.Sleep(1000)
 		os.Exit(2)
 	}).Methods("POST")
 	api.HandleFunc("/ping-db", func(w http.ResponseWriter, r *http.Request) {

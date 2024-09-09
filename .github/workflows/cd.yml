@@ -1,7 +1,7 @@
 name: cd.yml
 on:
   workflow_run:
-    workflows: ["ci-windows.yml"]
+    workflows: ["ci-ubuntu.yml"]
     types:
       - completed
     branches:
@@ -11,7 +11,6 @@ jobs:
   deploy_docker_vps:
     runs-on: windows-latest
     name: Deploy to VPS
-    container: docker
     steps:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3

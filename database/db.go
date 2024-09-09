@@ -27,3 +27,9 @@ func SqlPing(db *sql.DB) bool {
 	log.Println("Ping successful")
 	return true
 }
+
+func SqlWrite(db *sql.DB, data []any) {
+	if len(data) < 3 {
+		log.Panicf("Request data shorter than expected: size was %v & expected slice ", len(data))
+	}
+}
