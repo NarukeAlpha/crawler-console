@@ -22,6 +22,7 @@ jobs:
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         run: docker compose up --abort-on-container-exit --exit-code-from integrationtest
   deploy_docker_vps:
+    needs: build_docker_and_test
     runs-on: ubuntu-latest
     name: Deploy to VPS
     steps:
@@ -30,17 +31,18 @@ jobs:
         with:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_PRIVATE_KEY }}
+          key: ${{ secrets.VPS_SSH_KEY }}
           source: "./"
           target: "/home/${{ secrets.VPS_USER }}/docker-compose.yml"
   start_docker_containers:
+    needs: deploy_docker_vps
     runs-on: ubuntu-latest
     name: "Start docker containers"
     steps:
       - name: "SSH to remote server:"
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
       - name: "Run Docker Compose on VPS"
         id: run-docker-compose
         run: |
