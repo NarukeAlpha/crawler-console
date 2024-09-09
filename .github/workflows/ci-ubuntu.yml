@@ -32,8 +32,9 @@ jobs:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_IP_PORT }}
           source: "./"
-          target: "/home/${{ secrets.VPS_USER }}/docker-compose.yml"
+          target: "/ProjectCC/logservice"
   start_docker_containers:
     needs: deploy_docker_vps
     runs-on: ubuntu-latest
