@@ -6,6 +6,7 @@ on:
 jobs:
   build_docker_and_test:
     runs-on: ubuntu-latest
+    environment: Prod
     name: Run docker compose yml
     container: docker
     steps:
@@ -23,6 +24,7 @@ jobs:
         run: docker compose up --abort-on-container-exit --exit-code-from integrationtest
   deploy_service_vps:
     needs: build_docker_and_test
+    environment: Prod
     runs-on: ubuntu-latest
     name: Deploy to VPS
     steps:
@@ -36,6 +38,7 @@ jobs:
           "cd /ProjectCC/crawler-console && git pull"
   start_docker_containers:
     needs: deploy_service_vps
+    environment: Prod
     runs-on: ubuntu-latest
     name: "Start docker containers"
     steps:
