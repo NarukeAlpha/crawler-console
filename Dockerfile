@@ -1,5 +1,5 @@
 # Use the official Go image as a build stage
-FROM golang:1.22.3 as builder
+FROM golang:1.23 as builder
 
 # Set the Current Working Directory inside the container
 WORKDIR /app
@@ -19,5 +19,16 @@ RUN go build -o logservice main.go
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
+# Accept build-time arguments (optional)
+ARG DB_USER
+ARG DB_PASSWORD
+ARG DB_NAME
+ARG HTTP_HOST
+
+# Set environment variables for runtime
+ENV DB_USER=${DB_USER}
+ENV DB_PASSWORD=${DB_PASSWORD}
+ENV DB_NAME=${DB_NAME}
+ENV HTTP_HOST=${HTTP_HOST}
 # Run the binary program produced by `go build`
 CMD ["./logservice"]

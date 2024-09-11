@@ -33,8 +33,6 @@ services:
       HTTP_HOST: 0.0.0.0
     ports:
       - "8080:8080"
-    links:
-      - mysql
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/v1/healthcheck"]
       interval: 10s
@@ -51,7 +49,5 @@ services:
       LS_URL: logservice
     ports:
         - "8081:8081"
-
-
 volumes:
   mysqldata:

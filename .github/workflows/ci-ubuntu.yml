@@ -11,7 +11,7 @@ jobs:
     container: docker
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.7
       - name: "Builds the docker composed image"
         id: build
         run: docker compose build
@@ -48,6 +48,10 @@ jobs:
           ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
       - name: "Run Docker Compose on VPS"
         id: run-docker-compose
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         run: |
           ssh -p ${{ secrets.VPS_IP_PORT }} -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} \
           "cd /ProjectCC/crawler-console && docker compose up -d"
