@@ -34,7 +34,7 @@ func HttpServer(db *sql.DB) *mux.Router {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Healthy"))
 	}).Methods("GET")
-	log.Printf("Server started on %v:8080", os.Getenv("HTTP_HOST"))
+	log.Printf("Server started on %v:36020", os.Getenv("HTTP_HOST"))
 	return api
 
 }
