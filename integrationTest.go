@@ -12,7 +12,7 @@ func main() {
 	if !isPresent {
 		url = "127.0.0.1"
 	}
-	var host = "http://" + url + ":8080/v1/healthcheck"
+	var host = "http://" + url + ":36020/v1/healthcheck"
 	for i := 0; i < 10; i++ {
 		req, err := http.Get(host)
 		if err != nil {
