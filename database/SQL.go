@@ -19,7 +19,7 @@ func Main(dbkey struct {
 	defer Db.Close()
 
 	r := HttpServer(Db)
-	var localIP = os.Getenv("HTTP_HOST") + ":8080"
+	var localIP = os.Getenv("HTTP_HOST") + ":36026"
 	err := http.ListenAndServe(localIP, r)
 	if err != nil {
 		log.Panicf("Error starting server: %v", err)

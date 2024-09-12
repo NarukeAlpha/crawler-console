@@ -1,7 +1,7 @@
 ###
-POST http://localhost:8080/v1/exit
+POST http://localhost:36020/v1/exit
 ###
-GET http://localhost:8080/v1/ping-db
+GET http://localhost:36020/v1/ping-db
 ###
-GET http://localhost:8080/v1/healthcheck
+GET http://localhost:36020/v1/healthcheck
 ###

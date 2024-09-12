@@ -32,7 +32,7 @@ services:
       DB_NAME: maindb
       HTTP_HOST: 0.0.0.0
     ports:
-      - "8080:8080"
+      - "36020:36020"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/v1/healthcheck"]
       interval: 10s

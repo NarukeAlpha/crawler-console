@@ -17,7 +17,7 @@ COPY . .
 RUN go build -o logservice main.go
 
 # Expose port 8080 to the outside world
-EXPOSE 8080
+EXPOSE 36020
 
 # Accept build-time arguments (optional)
 ARG DB_USER
