@@ -16,7 +16,7 @@ COPY . .
 # Build the Go app for Windows
 RUN go build -o logservice main.go
 
-# Expose port 8080 to the outside world
+# Expose port 36020 to the outside world
 EXPOSE 36020
 
 # Accept build-time arguments (optional)

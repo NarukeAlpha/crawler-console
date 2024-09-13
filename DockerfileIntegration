@@ -16,8 +16,8 @@ COPY . .
 # Build the Go app for Windows
 RUN go build -o integrationTest integrationTest.go
 
-# Expose port 8080 to the outside world
-EXPOSE 8080
+# Expose port 36021 to the outside world
+EXPOSE 36021
 
 # Run the binary program produced by `go build`
 CMD ["./integrationTest"]

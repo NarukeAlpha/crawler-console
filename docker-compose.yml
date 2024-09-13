@@ -34,7 +34,7 @@ services:
     ports:
       - "36020:36020"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/v1/healthcheck"]
+      test: ["CMD", "curl", "-f", "http://localhost:36020/v1/healthcheck"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -48,6 +48,6 @@ services:
     environment:
       LS_URL: logservice
     ports:
-        - "8081:8081"
+        - "36021:36021"
 volumes:
   mysqldata:
