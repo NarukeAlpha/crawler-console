@@ -27,6 +27,59 @@ func SqlPing(db *sql.DB) bool {
 	log.Println("Ping successful")
 	return true
 }
+func updateAPIMap(db *sql.DB) map[string]string {
+	apiKeysMap := make(map[string]string)
+	rows, err := db.Query("SELECT api_key, service_name FROM APIKEYS")
+	if err != nil {
+		log.Printf("Error querying APIKEYS table: %v", err)
+		return apiKeysMap
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var apiKey, serviceName string
+		if err = rows.Scan(&apiKey, &serviceName); err != nil {
+			log.Printf("Error scanning row: %v", err)
+			return apiKeysMap
+		}
+		apiKeysMap[apiKey] = serviceName
+	}
+	if err = rows.Err(); err != nil {
+		log.Printf("Error iterating over rows: %v", err)
+		return apiKeysMap
+	}
+	return apiKeysMap
+}
+
+func allowedIPList(db *sql.DB) []string {
+	var ipList []string
+	rows, err := db.Query("SELECT ip FROM IP_LIST")
+	if err != nil {
+		log.Printf("Error querying IP_LIST table: %v", err)
+		return ipList
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var ip string
+		if err = rows.Scan(&ip); err != nil {
+			log.Printf("Error scanning row: %v", err)
+			return ipList
+		}
+		ipList = append(ipList, ip)
+	}
+	if err = rows.Err(); err != nil {
+		log.Printf("Error iterating over rows: %v", err)
+		return ipList
+	}
+	return ipList
+}
+
+func addNewIP(db *sql.DB, ip string) {
+	_, err := db.Exec("INSERT INTO IP_LIST(ip) VALUES(?)", ip)
+	if err != nil {
+		log.Printf("Error inserting new IP: %v", err)
+	}
+
+}
 
 func SqlWrite(db *sql.DB, data []any) {
 	if len(data) < 3 {

@@ -17,8 +17,9 @@ func Main(dbkey struct {
 
 	var Db = SqlInit(key)
 	defer Db.Close()
-
-	r := HttpServer(Db)
+	var apiKeysMap = updateAPIMap(Db)
+	var iPList = allowedIPList(Db)
+	r := HttpServer(Db, apiKeysMap, iPList)
 	var localIP = os.Getenv("HTTP_HOST") + ":36020"
 	err := http.ListenAndServe(localIP, r)
 	if err != nil {

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"io"
 	"log"
 	"os"
@@ -46,8 +45,6 @@ var data = Data{
 
 var mw io.Writer
 
-var datajsonenv = "data.dev.json"
-
 func init() {
 	log.Println("Initializing")
 	user, isPresent := os.LookupEnv("DB_USER")
@@ -56,33 +53,7 @@ func init() {
 		data.DbKey.Password = os.Getenv("DB_PASSWORD")
 		data.DbKey.Database = os.Getenv("DB_DATABASE")
 	} else {
-		_, err := os.Stat(datajsonenv)
-		if os.IsNotExist(err) {
-			_, err = os.Create(datajsonenv)
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
-		file, err := os.OpenFile(datajsonenv, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
-		if err != nil {
-			log.Panicf("Error opening data.json: %v", err)
-
-		}
-		decoder := json.NewDecoder(file)
-		err = decoder.Decode(&data)
-		if err != nil {
-			if err == io.EOF {
-				encoder := json.NewEncoder(file)
-				if err = encoder.Encode(data); err != nil {
-					log.Panicf("Error encoding data.json: %v", err)
-				}
-				log.Println("data.json is empty, please fill it out")
-				os.Exit(1)
-			} else {
-				log.Panicf("Error decoding data.json: %v", err)
-			}
-		}
-		AssertErrorToNil("failed to close file: %v", file.Close())
+		log.Fatalf("Env variables not set properly")
 	}
 
 	_, err := os.Stat("log.txt")
