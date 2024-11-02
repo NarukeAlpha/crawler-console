@@ -6,13 +6,20 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"slices"
+	"sync"
 	"time"
 
 	"github.com/gorilla/mux"
 )
 
-func HttpServer(db *sql.DB, apiKeysMap map[string]string, allowedIPList []string) *mux.Router {
+type LogMessage struct {
+	time     string `json:time`
+	app      string `json:app`
+	loglevel string `json:loglevel`
+	msg      string `json:msg`
+}
+
+func HttpServer(db *sql.DB, apiKeysMap *sync.Map) *mux.Router {
 
 	rt := mux.NewRouter()
 	health := rt.PathPrefix("/v1").Subrouter()
@@ -34,25 +41,18 @@ func HttpServer(db *sql.DB, apiKeysMap map[string]string, allowedIPList []string
 	auth := rt.PathPrefix("/auth").Subrouter()
 	auth.HandleFunc("/verifyKey", func(w http.ResponseWriter, r *http.Request) {
 		apiKey := r.Header.Get("ada-api-Key")
-		service, exist := apiKeysMap[apiKey]
+		service, exist := apiKeysMap.Load(apiKey)
 		if exist {
-			if !slices.Contains(allowedIPList, r.RemoteAddr) {
-				allowedIPList = append(allowedIPList, r.RemoteAddr)
-				addNewIP(db, r.RemoteAddr)
-				w.Write([]byte("New IP authorized"))
-				w.WriteHeader(http.StatusOK)
-			}
-		} else {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
-			return
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("Authorized for service: " + service.(string)))
 		}
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Authorized for service: " + service))
+
 	}).Methods("POST")
 
 	adminapi := rt.PathPrefix("/adminAPI").Subrouter()
-	adminapi.HandleFunc("/exit", ApiKeyAuth(apiKeysMap, allowedIPList, func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("Command to exit recieved from:%v", apiKeysMap[r.Header.Get("ada-api-Key")])
+	adminapi.HandleFunc("/exit", ApiKeyAuth(apiKeysMap, func(w http.ResponseWriter, r *http.Request) {
+		key, _ := apiKeysMap.Load(r.Header.Get("ada-api-Key"))
+		log.Printf("Command to exit recieved from:%v", key.(string))
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Shutting down Service"))
 		time.Sleep(1000)
@@ -60,11 +60,13 @@ func HttpServer(db *sql.DB, apiKeysMap map[string]string, allowedIPList []string
 	})).Methods("POST")
 
 	api := rt.PathPrefix("/v2").Subrouter()
-	api.HandleFunc("/add-entry", ApiKeyAuth(apiKeysMap, allowedIPList, func(w http.ResponseWriter, r *http.Request) {
-		if err := json.NewDecoder(r.Body).Decode; err != nil {
+	api.HandleFunc("/add-entry", ApiKeyAuth(apiKeysMap, func(w http.ResponseWriter, r *http.Request) {
+		var msg LogMessage
+		if err := json.NewDecoder(r.Body).Decode(&msg); err != nil {
 			http.Error(w, "Could not decode json request: ", http.StatusBadRequest)
 			return
 		}
+		SqlWrite(db, msg)
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Entry added"))
 	})).Methods("POST")
@@ -74,14 +76,15 @@ func HttpServer(db *sql.DB, apiKeysMap map[string]string, allowedIPList []string
 
 }
 
-func ApiKeyAuth(AKM map[string]string, AIL []string, indexedFunction http.HandlerFunc) http.HandlerFunc {
+func ApiKeyAuth(AKM *sync.Map, indexedFunction http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		apiKey := r.Header.Get("ada-api-Key")
-		_, exist := AKM[apiKey]
-		if !exist || !slices.Contains(AIL, r.RemoteAddr) {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		_, exist := AKM.Load(apiKey)
+		if exist {
+			indexedFunction(w, r)
+		} else {
+			http.Error(w, "Unauthorized Key", http.StatusUnauthorized)
 			return
 		}
-		indexedFunction(w, r)
 	}
 }

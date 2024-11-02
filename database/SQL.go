@@ -14,12 +14,10 @@ func Main(dbkey struct {
 }) {
 	var key = dbkey.User + ":" + dbkey.Password + "@tcp(" + dbkey.Url + ")/" + dbkey.Database
 	log.Printf("Connecting to %v", dbkey.Database)
-
 	var Db = SqlInit(key)
 	defer Db.Close()
 	var apiKeysMap = updateAPIMap(Db)
-	var iPList = allowedIPList(Db)
-	r := HttpServer(Db, apiKeysMap, iPList)
+	r := HttpServer(Db, apiKeysMap)
 	var localIP = os.Getenv("HTTP_HOST") + ":36020"
 	err := http.ListenAndServe(localIP, r)
 	if err != nil {

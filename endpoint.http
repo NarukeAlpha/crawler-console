@@ -1,7 +1,10 @@
 ###
-POST http://localhost:36020/v1/exit
+POST http://localhost:36020/adminAPI/exit
+ada-api-Key:LSRSqLycsi9YYLfcB2Immv3XkbAa1pQSQGdczrqXA5kU3Ld8DePuJ06dqYhIsneI
 ###
 GET http://localhost:36020/v1/ping-db
 ###
 GET http://localhost:36020/v1/healthcheck
 ###
+POST http://localhost:36020/auth/verifyKey
+ada-api-Key:LSRSqLycsi9YYLfcB2Immv3XkbAa1pQSQGdczrqXA5kU3Ld8DePuJ06dqYhIsneI

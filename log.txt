@@ -1,0 +1,81 @@
+2024/09/28 23:53:09 Started successfully
+2024/09/28 23:53:09 Started DB process
+2024/09/28 23:53:09 Connecting to maindb
+2024/09/28 23:53:09 Connected to database
+2024/09/28 23:53:09 Press Ctrl+C to exit
+2024/09/28 23:53:09 Error querying APIKEYS table: Error 1054 (42S22): Unknown column 'api_key' in 'field list'
+2024/09/28 23:53:09 Error querying IP_LIST table: Error 1146 (42S02): Table 'maindb.IPLIST' doesn't exist
+2024/09/28 23:53:09 Server started on 127.0.0.1:36020
+2024/09/28 23:53:49 Started successfully
+2024/09/28 23:53:49 Started DB process
+2024/09/28 23:53:49 Connecting to maindb
+2024/09/28 23:53:49 Connected to database
+2024/09/28 23:53:49 Press Ctrl+C to exit
+2024/09/28 23:53:49 Server started on 127.0.0.1:36020
+2024/09/28 23:55:45 Started successfully
+2024/09/28 23:55:45 Started DB process
+2024/09/28 23:55:45 Connecting to maindb
+2024/09/28 23:55:45 Connected to database
+2024/09/28 23:55:45 Press Ctrl+C to exit
+2024/09/28 23:55:45 Server started on 127.0.0.1:36020
+2024/09/28 23:58:06 Error inserting new IP: Error 1146 (42S02): Table 'maindb.IPLIST' doesn't exist
+2024/09/28 23:58:06 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:43)
+2024/09/28 23:58:06 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:49)
+2024/09/28 23:59:54 Started successfully
+2024/09/28 23:59:54 Started DB process
+2024/09/28 23:59:54 Connecting to maindb
+2024/09/28 23:59:54 Press Ctrl+C to exit
+2024/09/28 23:59:54 Connected to database
+2024/09/28 23:59:54 Server started on 127.0.0.1:36020
+2024/09/29 00:00:03 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:43)
+2024/09/29 00:00:03 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:49)
+2024/09/29 00:01:26 Started successfully
+2024/09/29 00:01:26 Started DB process
+2024/09/29 00:01:26 Connecting to maindb
+2024/09/29 00:01:26 Press Ctrl+C to exit
+2024/09/29 00:01:26 Connected to database
+2024/09/29 00:01:30 Server started on 127.0.0.1:36020
+2024/09/29 00:02:36 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:43)
+2024/09/29 00:02:42 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:49)
+2024/09/29 00:05:44 Started successfully
+2024/09/29 00:05:44 Started DB process
+2024/09/29 00:05:44 Connecting to maindb
+2024/09/29 00:05:44 Press Ctrl+C to exit
+2024/09/29 00:05:44 Connected to database
+2024/09/29 00:05:44 Server started on 127.0.0.1:36020
+2024/09/29 00:05:52 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:43)
+2024/09/29 00:05:52 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:49)
+2024/09/29 00:05:55 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:43)
+2024/09/29 00:05:55 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:49)
+2024/09/29 14:36:17 Started successfully
+2024/09/29 14:36:17 Started DB process
+2024/09/29 14:36:17 Connecting to maindb
+2024/09/29 14:36:17 Press Ctrl+C to exit
+2024/09/29 14:36:17 Connected to database
+2024/09/29 14:36:17 Server started on 127.0.0.1:36020
+2024/09/29 14:37:24 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:43)
+2024/09/29 14:37:24 http: superfluous response.WriteHeader call from github.com/narukealpha/crawler-console/database.HttpServer.func3 (httpServer.go:49)
+2024/09/30 13:23:03 Started successfully
+2024/09/30 13:23:03 Started DB process
+2024/09/30 13:23:03 Connecting to maindb
+2024/09/30 13:23:03 Connected to database
+2024/09/30 13:23:03 Press Ctrl+C to exit
+2024/09/30 13:23:03 Server started on 127.0.0.1:36020
+2024/10/04 01:14:06 Started successfully
+2024/10/04 01:14:06 Started DB process
+2024/10/04 01:14:06 Connecting to maindb
+2024/10/04 01:14:06 Connected to database
+2024/10/04 01:14:06 Press Ctrl+C to exit
+2024/10/04 01:14:06 Server started on 127.0.0.1:36020
+2024/10/04 01:14:47 Started successfully
+2024/10/04 01:14:47 Started DB process
+2024/10/04 01:14:47 Connecting to maindb
+2024/10/04 01:14:47 Press Ctrl+C to exit
+2024/10/04 01:14:47 Connected to database
+2024/10/04 01:14:47 Server started on 127.0.0.1:36020
+2024/10/04 01:26:37 Started successfully
+2024/10/04 01:26:37 Started DB process
+2024/10/04 01:26:37 Connecting to maindb
+2024/10/04 01:26:37 Connected to database
+2024/10/04 01:26:37 Press Ctrl+C to exit
+2024/10/04 01:26:37 Server started on 127.0.0.1:36020
